@@ -23,6 +23,8 @@ _Knowledge of R & Rshiny is strongly recommended._
 ### Installing
 To link the project to RStudio, it is recommended to clone the repositories using their respective SSH keys.
 
+Ensure you have the correct packages installed and loaded on your environment by typing into the console 'renv::init()'
+
 ### Key Files
 Within the DefCalc repository, the following are key files:
 * ui.R; _contains the code for producing the user interface of the app_
@@ -35,10 +37,12 @@ Within the DefCalc repository, the following are key files:
 Within the airflow-DefCalc repository, the following are key files:
 * ds.R; _contains the code that scrapes the website(s) specified for the data required to feed into the app, and saves it to the AWS S3 bucket (alpha-app-defcalc)_
 * iam_policy.json; _provides persmissions/access for the airflow to read/write in the AWS S3 bucket (alpha-app-defcalc)_
-* packrat; _details all packages/dependencies required for the app to load_
+* renv; _details all packages/dependencies required for the app to load_
 
 Within the airflow-dags repository, the following are key file(s):
-* defcalc_obr_scraper_global.py; _contains the code to ensure that the code within airflow-DefCalc is automatically ran at specified time intervals_
+* defcalc_obr_scraper_global.py; _contains the code to ensure that the code within airflow-DefCalc is automatically ran at specified time intervals using the correct release version of airflow-DefCalc_
 
 ### Deployment
 When ready to deploy new releases, newly published releases should adhere to the following versioning formats: https://semver.org/
+
+The new releases will automatically be built [on concourse](https://concourse.services.alpha.mojanalytics.xyz/teams/main/pipelines/DefCalc). To easily check if deployment is successful, make sure to update the release versioning in ui.R.
